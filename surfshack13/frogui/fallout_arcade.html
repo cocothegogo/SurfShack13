@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv='X-UA-Compatible' content='IE=edge'>
+	<meta charset='utf-8'>
+	<link rel='stylesheet' href='ui.css'>
+	<style>
+		html, body {
+			margin: 0;
+			height: 100%;
+			background-color: #000;
+			color: #9bff4a;
+			font-family: "Courier New", monospace;
+		}
+
+		#boot {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+			gap: 12px;
+			font-size: 16px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="boot">
+		<div>FALLOUT: SONORA</div>
+		<div>Loading cartridge...</div>
+		<input id="external" class="btn" type="button" value="Not loading? Open in browser" />
+	</div>
+	<script>
+		/* ref insert */
+		const GAME_URL = "https://fallout-nevada.ru/#/Fallout_Sonora_1_14_dlc_eng";
+
+		function sendToByond(...pairs) {
+			const params = new URLSearchParams();
+			params.append('src', ref);
+			for (let i = 0; i < pairs.length; i += 2) {
+				if (pairs[i + 1] !== undefined) {
+					params.append(pairs[i], pairs[i + 1]);
+				}
+			}
+			window.location.search = params.toString();
+		}
+
+		document.getElementById("external").addEventListener("click", function () {
+			sendToByond("open_external", 1);
+		});
+
+		// Navigate the popup itself to the game. Loading it as the top-level page
+		// (instead of an iframe) avoids the site's anti-embedding headers.
+		setTimeout(function () {
+			window.location.replace(GAME_URL);
+		}, 800);
+	</script>
+</body>
+
+</html>
