@@ -91,6 +91,7 @@
 	prereq_ids = list(TECHWEB_NODE_CONSOLES)
 	design_ids = list(
 		"arcade_battle",
+		"arcade_fallout",
 		"arcade_orion",
 		"slotmachine",
 	)

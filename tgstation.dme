@@ -6531,6 +6531,7 @@
 #include "surfshack13\code\_SIGNALS\nanites.dm"
 #include "surfshack13\code\datums\sprite_accessories.dm"
 #include "surfshack13\code\datums\elements\tweak.dm"
+#include "surfshack13\code\game\machinery\computer\arcade\fallout_arcade.dm"
 #include "surfshack13\code\game\machinery\computer\public_announce.dm"
 #include "surfshack13\code\game\objects\items\battering_ram.dm"
 #include "surfshack13\code\game\objects\items\circuitboards\computer_circuitboards.dm"
