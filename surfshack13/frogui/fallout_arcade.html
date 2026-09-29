@@ -8,54 +8,37 @@
 	<style>
 		html, body {
 			margin: 0;
-			padding: 0;
 			height: 100%;
-			overflow: hidden;
 			background-color: #000;
-		}
-
-		#toolbar {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-			height: 28px;
-			padding: 0 8px;
-			background-color: #1a1f12;
-			border-bottom: 2px solid #3f5a1c;
 			color: #9bff4a;
 			font-family: "Courier New", monospace;
-			font-size: 13px;
 		}
 
-		#game {
-			display: block;
-			width: 100%;
-			height: calc(100% - 30px);
-			border: none;
-			background-color: #000;
+		#boot {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+			gap: 12px;
+			font-size: 16px;
 		}
 	</style>
 </head>
 
 <body>
-	<div id="toolbar">
-		<span>FALLOUT: SONORA &mdash; insert cap to continue</span>
-		<span>
-			<input id="reload" class="btn" type="button" value="Reload" />
-			<input id="external" class="btn" type="button" value="Open in browser" />
-		</span>
+	<div id="boot">
+		<div>FALLOUT: SONORA</div>
+		<div>Loading cartridge...</div>
+		<input id="external" class="btn" type="button" value="Not loading? Open in browser" />
 	</div>
-	<iframe id="game"
-		src="https://fallout-nevada.ru/#/Fallout_Sonora_1_14_dlc_eng"
-		allow="fullscreen; autoplay; gamepad; clipboard-read; clipboard-write"
-		allowfullscreen></iframe>
 	<script>
 		/* ref insert */
+		const GAME_URL = "https://fallout-nevada.ru/#/Fallout_Sonora_1_14_dlc_eng";
 
 		function sendToByond(...pairs) {
 			const params = new URLSearchParams();
 			params.append('src', ref);
-
 			for (let i = 0; i < pairs.length; i += 2) {
 				if (pairs[i + 1] !== undefined) {
 					params.append(pairs[i], pairs[i + 1]);
@@ -64,13 +47,15 @@
 			window.location.search = params.toString();
 		}
 
-		const game = document.getElementById("game");
-		document.getElementById("reload").addEventListener("click", function () {
-			game.src = game.src;
-		});
 		document.getElementById("external").addEventListener("click", function () {
 			sendToByond("open_external", 1);
 		});
+
+		// Navigate the popup itself to the game. Loading it as the top-level page
+		// (instead of an iframe) avoids the site's anti-embedding headers.
+		setTimeout(function () {
+			window.location.replace(GAME_URL);
+		}, 800);
 	</script>
 </body>
 
