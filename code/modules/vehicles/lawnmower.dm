@@ -34,7 +34,7 @@
 	icon_state = "lawnmoweremag"
 
 /obj/vehicle/ridden/lawnmower/Bump(atom/bumped_thing)
-	if(isliving(bumped_thing))
+	if(emagged && isliving(bumped_thing))
 		var/mob/living/victim = bumped_thing
 		victim.adjustBruteLoss(25)
 		playsound(victim, 'sound/effects/hit_kick.ogg', 50, TRUE)
@@ -51,6 +51,10 @@
 	var/gibbed = FALSE
 	for(var/obj/structure/flora/grass/grass in loc)
 		qdel(grass)
+
+	if(!emagged)
+		playsound(loc, pick(drive_sounds), 75, TRUE)
+		return
 
 	for(var/mob/living/simple_animal/bot/secbot/secbot in loc)
 		visible_message(span_danger("[src] shreds [secbot] into scrap!"))
